@@ -1,0 +1,42 @@
+version: '3.7'
+services: 
+    laravel-db:
+        image: mysql:5.7
+        environment: 
+            MYSQL_ROOT_PASSWORD: desempleo
+            MYSQL_DATABASE: desempleo
+            MYSQL_USER: usr_laravel
+            MYSQL_PASSWORD: usrlaravel
+        ports:
+            - 3309:3306
+        volumes: 
+            - ./database/schemas/:/var/lib/mysql
+        networks: 
+            laravel-network:
+                ipv4_address: 172.21.100.9
+
+    laravel-prod:
+        build: 
+            context: ./
+            dockerfile: Dockerfile
+        ports: 
+            - 8200:80
+        volumes: 
+            - ./desempleo:/var/www/
+            - ./desempleo/public:/var/www/html
+        networks: 
+            laravel-network:
+                ipv4_address: 172.21.100.10
+        depends_on: 
+            - laravel-db
+volumes: 
+    desempleo:
+    database:
+networks: 
+    laravel-network:
+        driver: bridge
+        ipam: 
+            driver: default
+            config: 
+                -
+                    subnet: 172.21.100.0/24
