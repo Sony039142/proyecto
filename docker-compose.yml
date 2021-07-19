@@ -20,7 +20,7 @@ services:
             context: ./
             dockerfile: Dockerfile
         ports: 
-            - 8200:80
+            - 80:80
         volumes: 
             - ./desempleo:/var/www/
             - ./desempleo/public:/var/www/html
