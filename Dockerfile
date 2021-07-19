@@ -4,4 +4,4 @@ RUN apt-get update && apt-get install -y \
 
 RUN a2enmod rewrite
 RUN chmod 777 -R -c /var/www
-RUN chmod 777 -R /storage
+RUN chmod 777 -R storage/
